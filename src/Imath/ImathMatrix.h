@@ -198,15 +198,6 @@ template <class T> class Matrix22
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 const Matrix22& operator*= (const Matrix22& v);
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Matrix22 operator* (const Matrix22& v) const;
 
-    //-----------------------------------------------------------------
-    // Vector-times-matrix multiplication; see also the "operator *"
-    // functions defined below.
-    //
-    // m.multDirMatrix(src,dst) multiplies src by the matrix m.
-    //-----------------------------------------------------------------
-
-    template <class S> IMATH_HOSTDEVICE void multDirMatrix (const Vec2<S>& src, Vec2<S>& dst) const;
-
     //------------------------
     // Component-wise division
     //------------------------
@@ -1413,20 +1404,6 @@ Matrix22<T>::operator* (const Matrix22<T>& v) const
                 tmp.x[i][j] += x[i][k] * v.x[k][j];
 
     return tmp;
-}
-
-template <class T>
-template <class S>
-inline void
-Matrix22<T>::multDirMatrix (const Vec2<S>& src, Vec2<S>& dst) const
-{
-    S a, b;
-
-    a = src[0] * x[0][0] + src[1] * x[1][0];
-    b = src[0] * x[0][1] + src[1] * x[1][1];
-
-    dst.x = a;
-    dst.y = b;
 }
 
 template <class T>
